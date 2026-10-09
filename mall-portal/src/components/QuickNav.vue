@@ -12,10 +12,6 @@
         <el-icon :size="20"><Top /></el-icon>
       </a>
     </transition>
-    <a href="javascript:void(0)" class="quicknav-item" @click="handleOpenCustomer" title="智能客服">
-      <el-icon :size="20"><Service /></el-icon>
-      <span class="tip">客服</span>
-    </a>
     <router-link to="/cart" class="quicknav-item" title="购物车">
       <el-icon :size="20"><ShoppingCart /></el-icon>
       <span class="tip">购物车</span>
@@ -25,32 +21,15 @@
       <span class="tip">个人信息</span>
     </router-link>
   </div>
-  <CustomerModal ref="customerModalRef" />
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { ShoppingCart, Service, User, Top } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
-import { useAuthStore } from '@/stores/auth'
-import CustomerModal from '@/components/CustomerModal.vue'
+import { ShoppingCart, User, Top } from '@element-plus/icons-vue'
 
-const router = useRouter()
-const authStore = useAuthStore()
 const showTop = ref(false)
-const customerModalRef = ref(null)
 
 const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
-
-const handleOpenCustomer = () => {
-  if (!authStore.isLogin) {
-    ElMessage.warning('请登录')
-    router.push('/login')
-    return
-  }
-  customerModalRef.value?.open()
-}
 
 const handler = () => {
   showTop.value = window.scrollY > 300
